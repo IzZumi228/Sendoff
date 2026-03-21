@@ -10,8 +10,20 @@ export default function Page() {
     const [showDescription, setShowDescription] = useState(false);
 
     const barPath = "M 1010 702 L 890 670 L 1170 280 L 1170 280 L 1270 300"
+    const barPinLocation = "left-320 top-[-30]"
 
-    const restaurantPath = ""
+    const restaurantPath = "M 1010 702 L 890 670 L 1170 280 L 1170 280 L 1570 360"
+    const restaurantPinLocation = "left-390 top-[10]"
+    
+
+    const shoppingMallPath = "M 1010 702 L 890 670 L 990 530  L 1520 660 L 1570 540"
+    const shoppingMallPinLocation = "left-400 top-[200]"
+
+    const schoolPath = "M 1010 702 L 700 600 "
+    const schoolPinLocation = "left-190 top-[350]"
+
+    const homesPath = "M 1010 702 L 700 600 "
+    const homesPinLocation = "left-190 top-[350]"
 
 
 
@@ -39,9 +51,9 @@ export default function Page() {
             onClick={() => {
                 setShowDescription(true)
             }}
-                className="absolute left-320 top-[-30] "
+                className={`absolute  ${schoolPinLocation}`}
                 src={"/event-mark.png"} />
-            <PathFinder d={barPath} />
+            <PathFinder d={schoolPath} />
         </div>
     );
 }
