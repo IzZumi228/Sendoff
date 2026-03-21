@@ -19,23 +19,11 @@ export default function Home() {
             <header className="space-y-1">
               <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
               <p className="text-sm text-muted-foreground">
-                Sidebar, main content, and footer are now structured as a single
-                page without route groups.
+                 main content
               </p>
             </header>
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-lg border border-border/70 p-4">
-                <h2 className="mb-1 text-sm font-medium">Main Content Slot A</h2>
-                <p className="text-sm text-muted-foreground">
-                  Drop your dashboard components here.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/70 p-4">
-                <h2 className="mb-1 text-sm font-medium">Main Content Slot B</h2>
-                <p className="text-sm text-muted-foreground">
-                  Add charts, cards, tables, or map widgets.
-                </p>
-              </div>
+
             </div>
           </div>
         </section>
