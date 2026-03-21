@@ -2,7 +2,7 @@
 Hackbeta 2026 Project: Hero Search Engine
 * Group: DEA
 
-Given certain situations search through a database (from a .csv file) to search for the best heros to sucessfully complete the mission.
+Given certain situations search through a database (from a .csv file) to find for the best heros to sucessfully complete the mission.
 
 ## Roles
 * [Alek](https://github.com/Aleks-Nikitin) - Frontend, UI
