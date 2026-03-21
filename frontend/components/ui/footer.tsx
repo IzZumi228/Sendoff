@@ -1,34 +1,109 @@
 import Image from "next/image";
+
 const heroDashboard = [
- {name:"Batman ", imgUrl:"https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"},
- {name:"Captain America ", imgUrl:"https://www.superherodb.com/pictures2/portraits/10/100/274.jpg"},
- {name:"Deadpool ", imgUrl:"https://www.superherodb.com/pictures2/portraits/10/100/835.jpg"},
- {name:"Flash ", imgUrl:"https://www.superherodb.com/pictures2/portraits/10/100/891.jpg"},
- {name:"Green Lantern ", imgUrl:"https://www.superherodb.com/pictures2/portraits/10/100/697.jpg"},
+  { name: "Batman",          imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"  },
+  { name: "Captain America", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/274.jpg"  },
+  { name: "Deadpool",        imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg"  },
+  { name: "Flash",           imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/891.jpg"  },
+  { name: "Green Lantern",   imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/697.jpg"  },
 ];
 
 export function Footer() {
   return (
-    <footer className="supports-backdrop-filter:bg-background/70 border-t-4 border-border bg-accent/90 py-4 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 text-xs text-foreground sm:flex-row sm:items-center sm:justify-center">
-        <nav aria-label="Footer links">
-          <ul className="flex flex-wrap gap-4">
-            {heroDashboard.map((hero) => (
-              <li key={hero.name}>
-                <div className="flex flex-col items-center gap-2 rounded-md border-[3px] border-border bg-background px-2 py-2 shadow-[4px_4px_0_#111]">
+    <footer
+      className="relative border-t-4 border-black bg-[#f9f9f9] py-6 overflow-hidden"
+      style={{
+        boxShadow: "0 -6px 0 #111",
+        backgroundImage: `
+          radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px),
+          radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)
+        `,
+        backgroundSize: "12px 12px, 12px 12px",
+        backgroundPosition: "0 0, 6px 6px",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      {/* Panel caption strip */}
+      <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
+        <div className="h-[3px] flex-1 bg-black" />
+        <span
+          className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
+          style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
+        >
+          🦸 The Roster
+        </span>
+        <div className="h-[3px] flex-1 bg-black" />
+      </div>
+
+      {/* Hero cards */}
+      <nav aria-label="Footer hero roster" className="relative z-10">
+        <ul className="mx-auto flex w-full max-w-4xl flex-wrap justify-center gap-5 px-4">
+          {heroDashboard.map((hero) => (
+            <li key={hero.name}>
+              <div
+                className={[
+                  "group flex flex-col items-center gap-0",
+                  "border-4 border-black bg-white",
+                  "shadow-[6px_6px_0_#111]",
+                  "transition-all duration-75",
+                  "hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_#111]",
+                  "cursor-pointer overflow-hidden",
+                ].join(" ")}
+                style={{ width: 110 }}
+              >
+                {/* Image — with ink-border inset */}
+                <div className="relative w-full border-b-4 border-black overflow-hidden">
                   <Image
-                    className="rounded-sm border-2 border-border"
                     src={hero.imgUrl}
                     alt={hero.name}
-                    width={100}
-                    height={100}
+                    width={110}
+                    height={110}
+                    className="block w-full object-cover transition-transform duration-150 group-hover:scale-105"
+                    style={{ display: "block" }}
                   />
-                  <span className="text-xl tracking-wide transition-colors hover:text-primary">{hero.name}</span>
+                  {/* Speed-lines overlay on hover */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(135deg, transparent 0px, transparent 6px, rgba(255,230,0,0.18) 6px, rgba(255,230,0,0.18) 7px)",
+                    }}
+                  />
                 </div>
-              </li>
-            ))}
-          </ul>
-        </nav>
+
+                {/* Name tag — pop-art red band */}
+                <div
+                  className="w-full bg-[#FF3B3B] px-2 py-1.5 text-center"
+                  style={{ borderTop: "0px" }}
+                >
+                  <span
+                    className="block text-[13px] uppercase leading-tight tracking-[0.08em] text-white group-hover:text-[#FFE600] transition-colors"
+                    style={{
+                      fontFamily: "'Bangers', cursive",
+                      letterSpacing: "0.1em",
+                      WebkitTextStroke: "0.4px #111",
+                      textShadow: "1px 1px 0 rgba(0,0,0,0.4)",
+                    }}
+                  >
+                    {hero.name}
+                  </span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Bottom colophon */}
+      <div
+        className="relative z-10 mt-5 border-t-4 border-black bg-black py-2 text-center"
+      >
+        <span
+          className="text-[12px] uppercase tracking-[0.22em] text-[#FFE600]"
+          style={{ fontFamily: "'Bangers', cursive" }}
+        >
+          © Sendoff HQ — All heroes on standby
+        </span>
       </div>
     </footer>
   );
