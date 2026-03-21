@@ -51,9 +51,9 @@ export default function Page() {
             onClick={() => {
                 setShowDescription(true)
             }}
-                className={`absolute  ${schoolPinLocation}`}
+                className={`absolute  ${shoppingMallPinLocation}`}
                 src={"/event-mark.png"} />
-            <PathFinder d={schoolPath} />
+            <PathFinder d={shoppingMallPath} />
         </div>
     );
 }
