@@ -276,7 +276,7 @@ export default function Popup({
                       hasWeaknessPenalty ? "text-red-800" : "text-black",
                     ].join(" ")}
                   >
-                    ✕ Penalty Weakness {penaltyWeaknesses ? "-5% from success points" : ""}
+                    ✕ Penalty Weakness {hasWeaknessPenalty ? "-5% from success points" : ""}
                   </p>
                   <p
                     className={[

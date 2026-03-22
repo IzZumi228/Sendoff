@@ -56,20 +56,42 @@ export default function Home() {
     }
     : null;
 
+  const [missionStatus, setMissionStatus] = useState("");
+  const [sabotage, setIsSabotage] = useState(false);
+
   useEffect(() => {
     setFooterHeroes(heroDashboard);
+
   }, [heroDashboard]);
 
   const handleSendHero = async () => {
-    let totalScore = selectedHero?.skillsArr["finalscore"] as number
+    const isVillain = String(selectedHero?.skillsArr.isVillain).trim() === "True";
 
-    const missionSummary = await generateMissionEndMessage((totalScore / 2), selectedHero?.name!) || "";
+    let totalScore = selectedHero?.skillsArr["final_score"] as number;
 
-    setMissionSummary(missionSummary)
+    console.log("Success score is ", totalScore)
+
+    let successRate = totalScore / 2;
+
+    console.log("Success Rate is", successRate)
+
+    const roll = Math.random() * 100;
+    const rollForSabotage = Math.random() * 100;
+
+   
+    const didSabotage = isVillain && rollForSabotage <= 50;
+    const status = roll <= successRate ? "Success!" : "Fail";
+
+   
+    setIsSabotage(didSabotage);
+    setMissionStatus(status);
+
+    const missionSummary =
+      await generateMissionEndMessage(status, didSabotage, selectedHero?.name!, isVillain) || "";
+
+    setMissionSummary(missionSummary);
     setIsMissionSummaryOpen(true);
-
-
-  }
+  };
 
   return (
     <>
@@ -86,11 +108,13 @@ export default function Home() {
 
         {isMissionSummaryOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <MissionSummaryModal 
-            setVisible={setIsMissionSummaryOpen}
-            missionSummary={missionSummary} 
-            
-            heroSent={selectedHero?.name!} />
+            <MissionSummaryModal
+              missionStatus={missionStatus as "Success!" | "Fail"}
+              sabotage={sabotage}
+              setVisible={setIsMissionSummaryOpen}
+              missionSummary={missionSummary}
+
+              heroSent={selectedHero?.name!} />
           </div>
         )}
 
