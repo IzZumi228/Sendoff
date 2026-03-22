@@ -28,12 +28,7 @@ def get_data(situation: str):
     for weakness in weak:
         df.loc[df["Weakness"] == weakness, "final_score"] = df["final_score"] * 0.95
 
-
     best_heroes = df.nlargest(10, "final_score")
     data_l = json.loads(best_heroes.to_json(orient="records"))
 
     return data_l
-
-
-# print(get_data("intelligence-mission"))
-# print(df.columns.tolist())
