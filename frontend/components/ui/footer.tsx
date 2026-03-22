@@ -63,7 +63,7 @@ export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, han
                     setIsPopupOpen(true);
                   }}
                   className={[
-                    "group flex cursor-pointer flex-col items-center gap-0 overflow-hidden",
+                    "group flex cursor-pointer flex-col items-center gap-0 overflow-hidden min-h-40",
                     "border-4 border-black bg-white",
                     "shadow-[6px_6px_0_#111]",
                     "transition-all duration-75",
