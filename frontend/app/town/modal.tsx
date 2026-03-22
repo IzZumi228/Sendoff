@@ -1,5 +1,6 @@
 "use client";
 import { Dispatch, SetStateAction, useState } from "react";
+import { pickRandomAvatar } from "@/lib/avatar";
 
 interface ModalProps {
     setVisible: Dispatch<SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ export type HeroCard = {
     name: string;
     imgUrl: string;
     skillsArr: HeroSkills;
+    avatarVariant?: "female" | "male" | "mutant";
 };
 
 type SkillKey =
@@ -136,19 +138,13 @@ export default function WarningModal({
                         `Hero ${index + 1}`
                     );
 
-                const imageUrl =
-                    String(
-                        hero["Image url"] ??
-                        hero["ImageURL"] ??
-                        hero["image_url"] ??
-                        hero["imgUrl"] ??
-                        "/event-mark.png"
-                    );
+                const { imgUrl, variant } = pickRandomAvatar();
 
                 return {
                     name: heroName,
-                    imgUrl: imageUrl,
+                    imgUrl,
                     skillsArr: hero,
+                    avatarVariant: variant,
                 };
             });
 
