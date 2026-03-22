@@ -4,12 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import Popup from "./popup";
 import type { HeroCard } from "@/app/town/modal";
+import type { PopupMissionContext } from "./popup";
 
 type FooterProps = {
   heroes: HeroCard[];
+  missionContext: PopupMissionContext | null;
 };
 
-export function Footer({ heroes }: FooterProps) {
+export function Footer({ heroes, missionContext }: FooterProps) {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
 
   return (
@@ -113,6 +115,7 @@ export function Footer({ heroes }: FooterProps) {
         heroName={selectedHero?.name ?? ""}
         skillsArr={selectedHero?.skillsArr ?? {}}
         imageUrl={selectedHero?.imgUrl}
+        missionContext={missionContext}
         onClose={() => setSelectedHero(null)}
       />
     </>
