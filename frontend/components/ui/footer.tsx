@@ -11,6 +11,7 @@ type HeroCard = {
 };
 
 const heroDashboard = [
+<<<<<<< Updated upstream
   { name: "Batman",          imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg", skillsArr:{
   name: "Green X",
   power: 30,
@@ -129,6 +130,14 @@ const heroDashboard = [
   isHuman: false
   }  },
  ] satisfies HeroCard[];
+=======
+  { name: "Batman",          imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"  },
+  { name: "Captain America", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/274.jpg"  },
+  { name: "Deadpool",        imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg"  },
+  { name: "Flash",           imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/891.jpg"  },
+  { name: "Green Lantern",   imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/697.jpg"  },
+];
+>>>>>>> Stashed changes
 
 export function Footer() {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
@@ -194,6 +203,7 @@ export function Footer() {
                     />
                   </div>
 
+<<<<<<< Updated upstream
                   <div className="w-full bg-[#FF3B3B] px-2 py-1.5 text-center">
                     <span
                       className="block text-[13px] uppercase leading-tight tracking-[0.08em] text-white transition-colors group-hover:text-[#FFE600]"
@@ -231,6 +241,20 @@ export function Footer() {
         imageUrl={selectedHero?.imgUrl}
         onClose={() => setSelectedHero(null)}
       />
+=======
+      {/* Bottom colophon */}
+      <div
+        className="relative z-10 mt-5 border-t-4 border-black bg-black py-2 text-center"
+      >
+        <span
+          className="text-[12px] uppercase tracking-[0.22em] text-[#FFE600]"
+          style={{ fontFamily: "'Bangers', cursive" }}
+        >
+          © Sendoff HQ — All heroes on standby
+        </span>
+      </div>
+    </footer>
+>>>>>>> Stashed changes
     </>
   );
 }
