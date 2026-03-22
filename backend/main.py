@@ -11,7 +11,7 @@ class MissionRequest(BaseModel):
 def root_msg():
     return {"message": "Hello from root :D"}
 
-@api.get("/mission")
+@api.post("/mission")
 def best_heroes(request: MissionRequest):
     if request.mission not in MISSIONS:
         raise HTTPException(status_code=404, detail={
@@ -19,5 +19,4 @@ def best_heroes(request: MissionRequest):
             "available": list(MISSIONS.keys())
         })
     
-    situation = MISSIONS[request.mission]
-    return get_data(situation)
+    return get_data(request.mission)
