@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import Popup from "./popup";
 import type { HeroCard } from "@/app/town/modal";
+import type { PopupMissionContext } from "./popup";
 
 type FooterProps = {
   heroes: HeroCard[];
@@ -11,13 +12,13 @@ type FooterProps = {
   setSelectedHero: Dispatch<SetStateAction<HeroCard | null>>
   setHeroSent: Dispatch<SetStateAction<boolean>>
   handleHeroSent: () => void;
+  missionContext: PopupMissionContext | null;
 };
 
-export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, handleHeroSent}: FooterProps) {
+export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, handleHeroSent, missionContext}: FooterProps) {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   
-
 
   return (
     <>
@@ -131,6 +132,7 @@ export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, han
           handleHeroSent();
           setIsPopupOpen(false);
         }}
+        missionContext={missionContext}
       />
     </>
   );

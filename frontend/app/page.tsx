@@ -1,18 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { ComponentType, ReactElement } from "react";
 import { AppSidebar } from "@/components/ui/sidebar-app";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Footer } from "@/components/ui/footer";
 import TownDisplay from "./town/town-display";
 import type { HeroCard } from "./town/modal";
+import type { PopupMissionContext } from "@/components/ui/popup";
 import { FireExtinguisher, HeartPlus, LucideBrain, Radiation, ReceiptIndianRupeeIcon, Users2 } from "lucide-react";
 import { generateMissionEndMessage } from "@/lib/ai";
 import MissionSummaryModal from "@/components/mission-summary-ui";
 
-const sidebarItems = [
+type SidebarMission = {
+  name: string;
+  positiveStats: string[];
+  negativeStats: string[];
+  personality: string;
+  weaknesses: string[];
+  icon: () => ReactElement;
+};
+
+type PickedMission = {
+  name: string;
+  icon: ComponentType;
+} | null | undefined;
+
+const sidebarItems: SidebarMission[] = [
   { name: "Fire Disaster", positiveStats: ["Power", "Strength"], negativeStats: ["Evilness", "Corrupted"], personality: "Brave", weaknesses: ["Fire weakness", "Sound sensitive", "Fearful", "Short sighted", "Energy drain", "Hotheaded", "Reckless"], icon: () => <FireExtinguisher /> },
-  { name: "Monster Attack", positiveStats: ["Magic", "Strength"], negativeStats: ["Evilness", "Corrupted"], personality: "Cold blooded", weaknesses: ["Soft hearted", "Fearful", "Impulsive", "Reckless", "Overconfident", "Silver weakness", "Prideful"], icon: () => <img src={"monster.png"} className="w-5 h-5" /> },
+  { name: "Monster Attack", positiveStats: ["Magic", "Strength"], negativeStats: ["Evilness", "Corrupted"], personality: "Cold blooded", weaknesses: ["Soft hearted", "Fearful", "Impulsive", "Reckless", "Overconfident", "Silver weakness", "Prideful"], icon: () => <span className="text-base">👾</span> },
   { name: "Poison Leak", positiveStats: ["Poison", "Intelligence"], negativeStats: ["Evilness", "Corrupted"], personality: "Calculating", weaknesses: ["Poison susceptible", "Energy drain", "Short sighted", "Fearful", "Reckless", "Radition weak", "Water weakness"], icon: () => <span><Radiation /> </span> },
   { name: "Bandit Ambush", positiveStats: ["Defense", "Power"], negativeStats: ["Evilness", "Corrupted"], personality: "Cold blooded", weaknesses: ["Soft hearted", "Fearful", "Impulsive", "Reckless", "Overconfident", "Silver weakness", "Prideful"], icon: () => <span><Users2 /></span> },
   { name: "Dark Ritual", positiveStats: ["Intelligence", "Magic"], negativeStats: ["Strength", "Rage"], personality: "Power hungry", weaknesses: ["Magic vulnerable", "Light sensitive", "Darkness bound", "Obsessive", "Paranoid", "Hubris", "Power addicted"], icon: () => <span><ReceiptIndianRupeeIcon /></span> },
@@ -21,14 +37,8 @@ const sidebarItems = [
 ];
 
 
-type DisasterItem = {
-  name: string
-  icon: React.ComponentType
-}
-
-
 export default function Home() {
-  const [pickedMission, setPickedMission] = useState<DisasterItem | null>();
+  const [pickedMission, setPickedMission] = useState<PickedMission>(null);
   const [missionLocation, setMissionLocation] = useState("")
   const [missionDescription, setMissionDescription] = useState("")
   const [heroDashboard, setHeroDashboard] = useState<HeroCard[]>([]);
@@ -37,6 +47,14 @@ export default function Home() {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
   const [isMissionSummaryOpen, setIsMissionSummaryOpen] = useState(false);
   const [missionSummary, setMissionSummary] = useState("")
+  const selectedMission = sidebarItems.find((item) => item.name === pickedMission?.name);
+  const missionContext: PopupMissionContext | null = selectedMission
+    ? {
+      name: selectedMission.name,
+      bonusPersonality: selectedMission.personality,
+      penaltyWeaknesses: selectedMission.weaknesses,
+    }
+    : null;
 
   useEffect(() => {
     setFooterHeroes(heroDashboard);
@@ -83,7 +101,7 @@ export default function Home() {
               negStats={sidebarItems.find((item) => item.name === pickedMission?.name)?.negativeStats}
               personality={sidebarItems.find((item) => item.name === pickedMission?.name)?.personality}
               weaknesses={sidebarItems.find((item) => item.name === pickedMission?.name)?.weaknesses}
-              missionType={pickedMission?.name!}
+              missionType={pickedMission?.name ?? ""}
               missionDescription={missionDescription}
               missionLocaion={missionLocation}
               onHeroesLoaded={setHeroDashboard}
@@ -101,6 +119,7 @@ export default function Home() {
         setHeroSent={setHeroSent}
         heroes={footerHeroes}
         handleHeroSent={handleSendHero}
+        missionContext={missionContext}
       />
     </>
   );
