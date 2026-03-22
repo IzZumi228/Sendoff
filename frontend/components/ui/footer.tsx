@@ -63,7 +63,7 @@ export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, han
                     setIsPopupOpen(true);
                   }}
                   className={[
-                    "group flex cursor-pointer flex-col items-center gap-0 overflow-hidden min-h-40",
+                    "group flex h-[170px] cursor-pointer flex-col items-center gap-0 overflow-hidden",
                     "border-4 border-black bg-white",
                     "shadow-[6px_6px_0_#111]",
                     "transition-all duration-75",
@@ -89,9 +89,9 @@ export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, han
                     />
                   </div>
 
-                  <div className="w-full bg-[#FF3B3B] px-2 py-1.5 text-center">
+                  <div className="flex h-[52px] w-full items-center justify-center bg-[#FF3B3B] px-2 text-center">
                     <span
-                      className="block text-[13px] uppercase leading-tight tracking-[0.08em] text-white transition-colors group-hover:text-[#FFE600]"
+                      className="block max-h-10 overflow-hidden text-[12px] uppercase leading-4 tracking-[0.08em] text-white transition-colors group-hover:text-[#FFE600]"
                       style={{
                         fontFamily: "'Bangers', cursive",
                         letterSpacing: "0.1em",
