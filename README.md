@@ -26,8 +26,19 @@ uvicorn main:api --reload
 The .csv file is saved in `backend/src/` as `hackbeta-herodata.csv`
 
 ### Frontend
-😨
+Install all the dependencies
+```
+npm i
+```
+
+Run the server!
+```
+npm run dev
+```
+
+Always bet on Metal Torch.
+
 
 ![Invisigal from Dispatch](https://media1.tenor.com/m/fDsRFgcEe6YAAAAC/dispatch-invisigal.gif)
 
-We love Invisigal
+We(yes WEE) love Invisigal
