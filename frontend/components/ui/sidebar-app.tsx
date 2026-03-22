@@ -18,24 +18,46 @@ type DisasterItem = {
 }
 
 interface AppsideBarProps {
+  pickedMission: DisasterItem | null | undefined;
+  setPickedMission: Dispatch<SetStateAction<DisasterItem | null | undefined>>
+  missionLocation: string;
+  setMissionLocation: Dispatch<SetStateAction<string>>
+  missionDescription: string;
+  setmissionDescription: Dispatch<SetStateAction<string>>
   disasters: DisasterItem[];
 }
 
-export function AppSidebar({ disasters, }: AppsideBarProps) {
+export function AppSidebar({ disasters, pickedMission, setPickedMission, missionLocation, setMissionLocation, missionDescription, setmissionDescription }: AppsideBarProps) {
 
-  const missionLocations = ["bar", "restaurant", "school", "shopping mall", "downtown", "residential homes"]
-  const [pickedMission, setPickedMission] = useState<DisasterItem | null>();
-  const [missionLocation, setMissionLocation] = useState("")
+  const missionLocations = ["Bar", "Restaurant", "School", "Shopping Mall", "Downtown", "Residential Homes"]
+
+
+  const [currentDisasters, setCurrentDisasters] = useState(disasters)
 
 
 
 
   const handleMissionPick = async (mission: DisasterItem) => {
+
     setPickedMission(mission);
+
+    console.log("Picked the mission", mission)
+
     const location = missionLocations[Math.floor(Math.random() * missionLocations.length)]
+
     setMissionLocation(location)
-    disasters = disasters.filter((disaster) => disaster.name === pickedMission?.name)
-    await generateMissionDetails(mission.name, location)
+
+    console.log("Picked the location", location)
+
+    setCurrentDisasters((prev) => prev.filter((mis) => mis.name === mission.name))
+
+    const description = await generateMissionDetails(mission.name, location);
+
+    
+
+    setmissionDescription(description!);
+
+    console.log("generated description", description)
   }
 
 
@@ -114,7 +136,7 @@ export function AppSidebar({ disasters, }: AppsideBarProps) {
           </div>
 
           <SidebarMenu className="gap-2">
-            {disasters.map((disaster) => (
+            {currentDisasters.map((disaster) => (
               <SidebarMenuItem key={disaster.name}>
                 <SidebarMenuButton
                   asChild
@@ -130,7 +152,7 @@ export function AppSidebar({ disasters, }: AppsideBarProps) {
                   ].join(" ")}
 
                   onClick={() => {
-                    setPickedMission(disaster);
+                    handleMissionPick(disaster)
                   }}
                 >
                   <div>
