@@ -1,12 +1,21 @@
 "use client";
 
-export type HeroSkills = Record<string, number>;
+import Image from "next/image";
+import { Bangers } from "next/font/google";
+
+const bangers = Bangers({
+  subsets: ["latin"],
+  weight: "400",
+});
+
+export type HeroSkills = Record<string, string | number | boolean>;
 
 type PopupProps = {
   isOpen: boolean;
   heroName: string;
   skillsArr: HeroSkills;
   onClose: () => void;
+  imageUrl?: string;
 };
 
 export default function Popup({
@@ -14,94 +23,70 @@ export default function Popup({
   heroName,
   skillsArr,
   onClose,
+  imageUrl,
 }: PopupProps) {
   if (!isOpen) return null;
 
-  const stats = Object.entries(skillsArr);
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="relative w-full max-w-lg overflow-hidden border-[5px] border-black bg-white shadow-[10px_10px_0_black]">
-        <div className="flex items-center justify-between gap-4 border-b-[5px] border-black bg-black px-5 py-4">
-          <h2
-            className="text-3xl uppercase tracking-[0.15em] text-white"
-            style={{
-              fontFamily: "'Bangers', cursive",
-              textShadow: "3px 3px 0 #f5e642",
-            }}
-          >
-            {heroName}
-          </h2>
+    <div
+      className={`${bangers.className} fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4`}
+    >
+      <div className="w-full max-w-md border-4 border-black bg-[#fefae8] p-4 shadow-[8px_8px_0_#111]">
+        <div className="mb-4 flex items-center gap-3 border-b-4 border-black pb-3">
+          <div className="size-14 overflow-hidden rounded-full border-4 border-black bg-[#2b80d9] shadow-[3px_3px_0_#111]">
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={heroName}
+                width={56}
+                height={56}
+                className="size-full object-cover"
+              />
+            ) : null}
+          </div>
+          <div className="min-w-0">
+            <p className="inline-block bg-[#ffd900] px-2 py-0.5 text-lg uppercase tracking-wider text-black">
+              {heroName}
+            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-black/70">
+              Hero Profile
+            </p>
+          </div>
           <button
             onClick={onClose}
-            className="border-2 border-white px-2 text-xl text-white transition hover:bg-white hover:text-black"
-            aria-label="Close popup"
+            className="ml-auto border-2 border-black bg-white px-2 py-1 text-xs font-bold uppercase tracking-wider shadow-[2px_2px_0_#111] hover:bg-[#ffd900]"
           >
-            ✕
+            Close
           </button>
         </div>
 
-        <div className="relative border-b-[5px] border-black bg-white px-6 py-6">
-          <div
-            className="pointer-events-none absolute right-0 top-0 h-24 w-24 opacity-[0.07]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, #000 1.5px, transparent 1.5px)",
-              backgroundSize: "8px 8px",
-            }}
-          />
-
-          <div className="mb-4 flex items-center gap-2">
-            <div className="h-[3px] w-4 bg-black" />
-            <span
-              className="text-sm uppercase tracking-[0.18em] text-black"
-              style={{ fontFamily: "'Bangers', cursive" }}
-            >
-              Hero Stats
-            </span>
-            <div className="h-[3px] flex-1 bg-black" />
-          </div>
-
-          <div className="grid grid-cols-4 gap-2">
-            {stats.map(([statName, statValue]) => (
+        <div className="mb-4">
+          <p className="mb-2 text-xs uppercase tracking-[0.2em] text-black/80">
+            Stats
+          </p>
+          <div className="max-h-72 space-y-2 overflow-auto pr-1">
+            {Object.entries(skillsArr).map(([statName, statValue]) => (
               <div
                 key={statName}
-                className="grid items-center gap-3 border-2 border-black bg-[#fff7cc] px-3 py-2 shadow-[3px_3px_0_#111]"
+                className="grid grid-cols-[1fr_auto] items-center gap-2 border-2 border-black bg-white px-3 py-2 shadow-[2px_2px_0_#111]"
               >
-                <span
-                  className="uppercase text-black"
-                  style={{
-                    fontFamily: "'Bangers', cursive",
-                    letterSpacing: "0.08em",
-                    fontWeight: 700,
-                  }}
-                >
+                <span className="truncate text-sm uppercase tracking-[0.08em] text-black">
                   {statName}
                 </span>
-                <span
-                  className="min-w-14 border-2 border-black bg-[#FF3B3B] px-2 py-0.5 text-center text-white"
-                  style={{
-                    fontFamily: "'Bangers', cursive",
-                    letterSpacing: "0.08em",
-                    WebkitTextStroke: "0.4px #111",
-                  }}
-                >
-                  {statValue}
+                <span className="border-2 border-black bg-[#ff3b3b] px-2 py-0.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
+                  {String(statValue)}
                 </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-[#f5e642] p-3">
-          <button
-            onClick={onClose}
-            className="w-full border-4 border-black bg-white py-3 text-xl uppercase tracking-[0.2em] text-black shadow-[5px_5px_0_black] transition-all hover:bg-[#eee] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[2px_2px_0_black]"
-            style={{ fontFamily: "'Bangers', cursive" }}
-          >
-            Close
-          </button>
-        </div>
+        <button
+          onClick={onClose}
+          className="w-full border-4 border-black bg-[#ffd900] py-2 text-sm uppercase tracking-[0.2em] text-black shadow-[4px_4px_0_#111] hover:bg-[#ff3b3b] hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#111]"
+        >
+          Send A Hero
+        </button>
       </div>
     </div>
   );
