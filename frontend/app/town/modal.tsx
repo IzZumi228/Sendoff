@@ -100,7 +100,6 @@ export default function WarningModal({
     missionKey,
     onHeroesLoaded,
 }: ModalProps) {
-    const allSkills = Object.keys(SKILL_META) as SkillKey[];
     const [isSending, setIsSending] = useState(false);
 
     const sendChosenDisaster = async () => {
