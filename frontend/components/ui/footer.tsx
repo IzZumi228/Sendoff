@@ -1,39 +1,119 @@
 import Image from "next/image";
 
 const heroDashboard = [
+<<<<<<< Updated upstream
   { name: "Batman",          imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"  },
   { name: "Captain America", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/274.jpg"  },
   { name: "Deadpool",        imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg"  },
   { name: "Flash",           imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/891.jpg"  },
   { name: "Green Lantern",   imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/697.jpg"  },
 ];
+=======
+  {
+    name: "Batman", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg", skillsArr: {
+      "Strength": 100,
+      "Speed": 100,
+      "Agility": 100,
+      "Endurance": 100,
+      "Intelligence": 100,
+      "Willpower": 100,
+      "Power": 100,
+      "Combat": 100,
+      "Stealth": 100,
+      "Leadership": 100,
+      "Strategy": 100,
+    }
+  },
+  {
+    name: "Captain America", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/274.jpg", skillsArr: {
+      "Strength": 100,
+      "Speed": 100,
+      "Agility": 100,
+      "Endurance": 100,
+      "Intelligence": 100,
+      "Willpower": 100,
+      "Power": 100,
+      "Combat": 100,
+      "Stealth": 100,
+      "Leadership": 100,
+      "Strategy": 100,
+    }
+  },
+  {
+    name: "Deadpool", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg", skillsArr: {
+      "Strength": 100,
+      "Speed": 100,
+      "Agility": 100,
+      "Endurance": 100,
+      "Intelligence": 100,
+      "Willpower": 100,
+      "Power": 100,
+      "Combat": 100,
+      "Stealth": 100,
+      "Leadership": 100,
+      "Strategy": 100,
+    }
+  },
+  {
+    name: "Flash", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/891.jpg", skillsArr: {
+      "Strength": 100,
+      "Speed": 100,
+      "Agility": 100,
+      "Endurance": 100,
+      "Intelligence": 100,
+      "Willpower": 100,
+      "Power": 100,
+      "Combat": 100,
+      "Stealth": 100,
+      "Leadership": 100,
+      "Strategy": 100,
+    }
+  },
+  {
+    name: "Green Lantern", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/697.jpg", skillsArr: {
+      "Strength": 100,
+      "Speed": 100,
+      "Agility": 100,
+      "Endurance": 100,
+      "Intelligence": 100,
+      "Willpower": 100,
+      "Power": 100,
+      "Combat": 100,
+      "Stealth": 100,
+      "Leadership": 100,
+      "Strategy": 100,
+    }
+  },
+] satisfies HeroCard[];
+>>>>>>> Stashed changes
 
 export function Footer() {
   return (
-    <footer
-      className="relative border-t-4 border-black bg-[#f9f9f9] py-6 overflow-hidden"
-      style={{
-        boxShadow: "0 -6px 0 #111",
-        backgroundImage: `
+    <>
+      <footer
+        className="relative border-t-4 border-black bg-[#f9f9f9] py-6 overflow-hidden"
+        style={{
+          boxShadow: "0 -6px 0 #111",
+          backgroundImage: `
           radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px),
           radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)
         `,
-        backgroundSize: "12px 12px, 12px 12px",
-        backgroundPosition: "0 0, 6px 6px",
-        backgroundColor: "#f9f9f9",
-      }}
-    >
-      {/* Panel caption strip */}
-      <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
-        <div className="h-[3px] flex-1 bg-black" />
-        <span
-          className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
-          style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
-        >
-           The Roster
-        </span>
-        <div className="h-[3px] flex-1 bg-black" />
-      </div>
+          backgroundSize: "12px 12px, 12px 12px",
+          backgroundPosition: "0 0, 6px 6px",
+          backgroundColor: "#f9f9f9",
+        }}
+      >
+        {/* Panel caption strip */}
+        <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
+          <div className="h-[3px] flex-1 bg-black" />
+          <span
+            className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
+            style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
+          >
+            The Roster
+          </span>
+          <div className="h-[3px] flex-1 bg-black" />
+        </div>
 
       {/* Hero cards */}
       <nav aria-label="Footer hero roster" className="relative z-10">
