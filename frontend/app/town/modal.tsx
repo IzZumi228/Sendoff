@@ -11,7 +11,6 @@ interface ModalProps {
     negativeSkills: string[];
     bonusPersonality: string;
     penaltyWeaknesses: string[];
-    missionKey: string;
     onHeroesLoaded: (heroes: HeroCard[]) => void;
 }
 
@@ -44,6 +43,17 @@ const ALL_SKILLS: SkillKey[] = [
     "Power", "Strength", "Magic", "Intelligence", "Speed",
     "Defense", "Poison", "Rage", "Corrupted", "Evilness",
 ];
+
+
+const CONVERTER = {
+    "Fire Disaster": "fire-disaster",
+    "Monster Attack": "monster-attack",
+    "Poison Leak": "poison-leak",
+    "Bandint Ambush": "bandit-ambush",
+    "Dark Ritual": "dark-ritual",
+    "Rescue Mission": "rescue-mission",
+    "Intellegence Mission": "intellegence-mission"
+}
 
 function SkillBadge({ skill, state }: { skill: SkillKey; state: "required" | "negative" | "dimmed" }) {
     const { bg, border, shadow } = SKILL_BG[skill];
@@ -97,12 +107,14 @@ export default function WarningModal({
     negativeSkills,
     bonusPersonality,
     penaltyWeaknesses,
-    missionKey,
     onHeroesLoaded,
 }: ModalProps) {
     const [isSending, setIsSending] = useState(false);
 
     const sendChosenDisaster = async () => {
+        const missionKey = CONVERTER[eventTitle as keyof typeof CONVERTER] 
+        console.log("Mission key", missionKey);
+
         try {
             setIsSending(true);
             const response = await fetch("http://localhost:8000/mission", {
@@ -110,8 +122,7 @@ export default function WarningModal({
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ mission: missionKey }),
-            });
+                body: JSON.stringify({ mission: missionKey }),});
             if (!response.ok) {
                 throw new Error(`Request failed with status ${response.status}`);
             }

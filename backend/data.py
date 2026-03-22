@@ -35,5 +35,5 @@ def get_data(situation: str):
     return data_l
 
 
-print(get_data("intelligence-mission"))
+# print(get_data("intelligence-mission"))
 # print(df.columns.tolist())

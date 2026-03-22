@@ -41,7 +41,7 @@
         "weaknesses": ["Soft hearted", "Fearful", "Energy drain", "Short sighted", "Impulsive", "Guilt ridden", "Lonely"]
     },
 
-    "intelligence-mission": {
+    "intellegence-mission": {
         "positive-stats": ["Intelligence", "Corrupted"],
         "negative-stats": ["Evilness", "Strength"],
         "personality": "Clever",

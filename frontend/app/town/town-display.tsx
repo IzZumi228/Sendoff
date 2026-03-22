@@ -99,7 +99,6 @@ export default function TownDisplay({
                         negativeSkills={negStats!}
                         bonusPersonality={personality!}
                         penaltyWeaknesses={weaknesses!}
-                        missionKey="fire-disaster"
                         onHeroesLoaded={onHeroesLoaded}
 
                     />
