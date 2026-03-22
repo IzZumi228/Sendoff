@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Bangers, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Footer } from "@/components/ui/footer";
 
 const comicSans = Bangers({
   variable: "--font-comic",
@@ -31,7 +30,6 @@ export default function RootLayout({
     >
       <body className="flex min-h-svh flex-col">
         <div className="flex-1">{children}</div>
-        <Footer />
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface ModalProps {
     setVisible: Dispatch<SetStateAction<boolean>>;
@@ -11,7 +11,17 @@ interface ModalProps {
     negativeSkills: string[];
     bonusPersonality: string;
     penaltyWeaknesses: string[];
+    missionKey: string;
+    onHeroesLoaded: (heroes: HeroCard[]) => void;
 }
+
+export type HeroSkills = Record<string, string | number | boolean>;
+
+export type HeroCard = {
+    name: string;
+    imgUrl: string;
+    skillsArr: HeroSkills;
+};
 
 type SkillKey =
     | "Power" | "Strength" | "Magic" | "Intelligence" | "Speed"
@@ -87,7 +97,60 @@ export default function WarningModal({
     negativeSkills,
     bonusPersonality,
     penaltyWeaknesses,
+    missionKey,
+    onHeroesLoaded,
 }: ModalProps) {
+    const allSkills = Object.keys(SKILL_META) as SkillKey[];
+    const [isSending, setIsSending] = useState(false);
+
+    const sendChosenDisaster = async () => {
+        try {
+            setIsSending(true);
+            const response = await fetch("http://localhost:8000/mission", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ mission: missionKey }),
+            });
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            const data = (await response.json()) as Array<Record<string, string | number | boolean>>;
+            const mappedHeroes: HeroCard[] = data.map((hero, index) => {
+                const heroName =
+                    String(
+                        hero["Name"] ??
+                        hero["name"] ??
+                        hero["Hero"] ??
+                        hero["hero"] ??
+                        `Hero ${index + 1}`
+                    );
+
+                const imageUrl =
+                    String(
+                        hero["Image url"] ??
+                        hero["ImageURL"] ??
+                        hero["image_url"] ??
+                        hero["imgUrl"] ??
+                        "/event-mark.png"
+                    );
+
+                return {
+                    name: heroName,
+                    imgUrl: imageUrl,
+                    skillsArr: hero,
+                };
+            });
+
+            onHeroesLoaded(mappedHeroes);
+            setVisible(false);
+        } finally {
+            setIsSending(false);
+        }
+    };
+
     return (
         <div
             className="relative z-10 w-full max-w-md bg-white border-[5px] border-black shadow-[10px_10px_0_black]"
@@ -177,10 +240,12 @@ export default function WarningModal({
             {/* Actions */}
             <div className="p-5 flex flex-col gap-3 bg-[#f5e642]">
                 <button
-                    onClick={() => { setShowPath(true); setVisible(false); }}
-                    className="w-full border-[4px] border-black bg-white py-4 uppercase tracking-[0.2em] text-black transition-all active:translate-x-1 active:translate-y-1 hover:bg-gray-100 text-[22px] shadow-[5px_5px_0_black]"
+                    onClick={() => { setShowPath(true); setVisible(false); sendChosenDisaster(); }}
+                    disabled={isSending}
+                    className="w-full border-4 border-black bg-white py-4 uppercase tracking-[0.2em] text-black transition-all active:translate-x-[4px] active:translate-y-[4px] hover:bg-[#eee]"
+                    style={{ fontSize: 22, boxShadow: "5px 5px 0 black" }}
                 >
-                    Send a Hero!
+                    {isSending ? "Sending..." : "Send a Hero!"}
                 </button>
             </div>
 

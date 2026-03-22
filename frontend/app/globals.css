@@ -124,7 +124,7 @@
   }
  
   body {
-    @apply bg-background text-foreground;
+
     font-family: 'Comic Neue', cursive;
     letter-spacing: 0.04em;
  

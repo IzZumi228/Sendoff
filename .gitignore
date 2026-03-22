@@ -1,5 +1,14 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore node_modules and build outputs
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+frontend/!.yarn/patches
+frontend/!.yarn/plugins
+frontend/!.yarn/releases
+frontend/!.yarn/versions
 
+<<<<<<< HEAD
 # dependencies
 frontend/node_modules
 frontend/.pnp
@@ -39,8 +48,35 @@ frontend/.vercel
 # typescript
 frontend/*.tsbuildinfo
 frontend/next-env.d.ts
+=======
+frontend/coverage
 
-# Python
-__pycache__/
+next.js
+frontend/.next/
+frontend/out/
+
+frontend/build
+
+frontend/.DS_Store
+frontend/.pem
+
+frontend/npm-debug.log
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+fronten/.pnpm-debug.log*
+
+env files (can opt-in for committing if needed)
+frontend/.env*
+
+
+frontend/.vercel
+
+>>>>>>> 75e18e1 (add: fetch data from modal popup and render heroes)
+
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+
+pycache/
 venv/
 *.csv

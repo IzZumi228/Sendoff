@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import PathFinder from "./pathfinder";
 import WarningModal from "./modal";
+import type { HeroCard } from "./modal";
 
 
 
@@ -14,6 +15,7 @@ interface TownDisplayProps {
     negStats?: string[];
     personality?: string;
     weaknesses?: string[];
+    onHeroesLoaded: (heroes: HeroCard[]) => void;
 }
 
 type Coordinates = {
@@ -30,6 +32,7 @@ export default function TownDisplay({
     negStats,
     personality,
     weaknesses,
+    onHeroesLoaded
 
 }: TownDisplayProps) {
 
@@ -96,6 +99,8 @@ export default function TownDisplay({
                         negativeSkills={negStats!}
                         bonusPersonality={personality!}
                         penaltyWeaknesses={weaknesses!}
+                        missionKey="fire-disaster"
+                        onHeroesLoaded={onHeroesLoaded}
 
                     />
                 </div>

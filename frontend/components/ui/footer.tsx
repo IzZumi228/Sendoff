@@ -2,148 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Popup, { type HeroSkills } from "./popup";
+import Popup from "./popup";
+import type { HeroCard } from "@/app/town/modal";
 
-
-
-type HeroCard = {
-  name: string;
-  imgUrl: string;
-  skillsArr: HeroSkills;
+type FooterProps = {
+  heroes: HeroCard[];
 };
 
-const heroDashboard = [
-  {
-    name: "Batman",
-    imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg", skillsArr: {
-      name: "Green X",
-      power: 30,
-      strength: 37,
-      magic: 76,
-      intelligence: 74,
-      speed: 92,
-      defense: 89,
-      poison: 7,
-      rage: 31,
-      corrupted: 24,
-      evilness: 48,
-      age: 33.83,
-      personality: "Sarcastic",
-      hometown: "Hong Kong",
-      favoriteColor: "0x9251B",
-      weakness: "Fearful",
-      height: "16' 0''",
-      weight: 58.01804,
-      isVillain: false,
-      isLiving: false,
-      isEmployed: false,
-      isHuman: true
-    }
-  },
-  {
-    name: "Captain America", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/274.jpg", skillsArr: {
-      power: 92,
-      strength: 43,
-      magic: 66,
-      intelligence: 78,
-      speed: 51,
-      defense: 82,
-      poison: 0,
-      rage: 13,
-      corrupted: 45,
-      evilness: 0,
-      age: 23.46,
-      personality: "Sadistic",
-      hometown: "Zhengzhou",
-      favoriteColor: "0x52DEFF",
-      weakness: "Soft hearted",
-      height: "17' 2''",
-      weight: 234.36007,
-      isVillain: false,
-      isLiving: false,
-      isEmployed: true,
-      isHuman: false
-    }
-  },
-  {
-    name: "Deadpool", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg", skillsArr: {
-      power: 64,
-      strength: 0,
-      magic: 40,
-      intelligence: 100,
-      speed: 80,
-      defense: 11,
-      poison: 50,
-      rage: 28,
-      corrupted: 42,
-      evilness: 100,
-      age: 18.0,
-      personality: "Power hungry",
-      hometown: "Porto Alegre",
-      favoriteColor: "0xA130BB",
-      weakness: "Prideful",
-      height: "8' 3''",
-      weight: 51.02968,
-      isVillain: false,
-      isLiving: false,
-      isEmployed: true,
-      isHuman: false
-    }
-  },
-  {
-    name: "Flash", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/891.jpg", skillsArr: {
-      power: 76,
-      strength: 51,
-      magic: 89,
-      intelligence: 89,
-      speed: 63,
-      defense: 60,
-      poison: 45,
-      rage: 82,
-      corrupted: 20,
-      evilness: 7,
-      age: 43.31,
-      personality: "Sarcastic",
-      hometown: "Buenos Aires",
-      favoriteColor: "0xE54430",
-      weakness: "Obsessive",
-      height: "16' 3''",
-      weight: 207.13496,
-      isVillain: true,
-      isLiving: false,
-      isEmployed: true,
-      isHuman: true
-    }
-  },
-  {
-    name: "Green Lantern", imgUrl: "https://www.superherodb.com/pictures2/portraits/10/100/697.jpg", skillsArr: {
-      name: "Dark Girl",
-      power: 8,
-      strength: 14,
-      magic: 54,
-      intelligence: 6,
-      speed: 10,
-      defense: 3,
-      poison: 45,
-      rage: 9,
-      corrupted: 30,
-      evilness: 18,
-      age: 26.27,
-      personality: "Calculating",
-      hometown: "Shenyang",
-      favoriteColor: "0x7A3047",
-      weakness: "Power addicted",
-      height: "4' 9''",
-      weight: 9.74529,
-      isVillain: true,
-      isLiving: true,
-      isEmployed: false,
-      isHuman: false
-    }
-  },
-] satisfies HeroCard[];
-
-export function Footer() {
+export function Footer({ heroes }: FooterProps) {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
 
   return (
@@ -176,7 +42,12 @@ export function Footer() {
         {/* Hero cards */}
         <nav aria-label="Footer hero roster" className="relative z-10">
           <ul className="mx-auto flex w-full max-w-4xl flex-wrap justify-center gap-5 px-4">
-            {heroDashboard.map((hero) => (
+            {heroes.length === 0 ? (
+              <li className="rounded-md border-2 border-black bg-white px-4 py-2 text-xs uppercase tracking-[0.14em] text-black shadow-[4px_4px_0_#111]">
+                No heroes yet - dispatch from mission modal
+              </li>
+            ) : null}
+            {heroes.map((hero) => (
               <li key={hero.name}>
                 <button
                   onClick={() => setSelectedHero(hero)}
