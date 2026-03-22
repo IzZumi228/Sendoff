@@ -8,14 +8,37 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Dispatch, SetStateAction, useState } from "react"
+import { Loader } from "./loader"
+import generateMissionDetails from "@/lib/ai"
 
 type DisasterItem = {
   name: string
-  url: string
   icon: React.ComponentType
 }
 
-export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
+interface AppsideBarProps {
+  disasters: DisasterItem[];
+}
+
+export function AppSidebar({ disasters, }: AppsideBarProps) {
+
+  const missionLocations = ["bar", "restaurant", "school", "shopping mall", "downtown", "residential homes"]
+  const [pickedMission, setPickedMission] = useState<DisasterItem | null>();
+  const [missionLocation, setMissionLocation] = useState("")
+
+
+
+
+  const handleMissionPick = async (mission: DisasterItem) => {
+    setPickedMission(mission);
+    const location = missionLocations[Math.floor(Math.random() * missionLocations.length)]
+    setMissionLocation(location)
+    disasters = disasters.filter((disaster) => disaster.name === pickedMission?.name)
+    await generateMissionDetails(mission.name, location)
+  }
+
+
   return (
     <Sidebar
       variant="sidebar"
@@ -85,7 +108,7 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
               className="px-2 text-[18px] font-black uppercase tracking-[0.15em] text-black"
               style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.2em" }}
             >
-              Active Missions
+              Pick a Mission
             </span>
             <div className="h-[3px] flex-1 bg-black" />
           </div>
@@ -105,8 +128,12 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
                     "data-[active=true]:shadow-[4px_4px_0_#111] data-[active=true]:bg-[#FF3B3B]",
                     "data-[active=true]:text-white",
                   ].join(" ")}
+
+                  onClick={() => {
+                    setPickedMission(disaster);
+                  }}
                 >
-                  <a href={disaster.url} className="flex items-center gap-3 w-full">
+                  <div>
                     {/* Icon badge */}
                     <span
                       className={[
@@ -132,10 +159,17 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
                     >
                       ▶
                     </span>
-                  </a>
+                  </div>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+
+            {pickedMission && (
+              <div className="flex flex-col items-center">
+                <Loader />
+                <p >Monitoring crime activity...</p>
+              </div>
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

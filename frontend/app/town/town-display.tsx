@@ -9,6 +9,8 @@ export default function TownDisplay() {
 
     const [showDescription, setShowDescription] = useState(false);
 
+    
+
     const barPath = "M 670 470 L 600 450 L 790 190 L 850 205"
     const barPinLocation = "left-220 top-[20]"
 
@@ -56,7 +58,7 @@ export default function TownDisplay() {
                 }}
                 className={`absolute  ${downTownPinLocation} w-30 h-40`}
                 src={"/event-mark.png"} />
-            <PathFinder d={downTownPath} />
+            <PathFinder d={schoolPath} />
         </div>
     );
 }
