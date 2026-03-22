@@ -82,31 +82,30 @@ export function Footer() {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
 
   return (
-    <>
-      <footer
-        className="relative overflow-hidden border-t-4 border-black bg-[#f9f9f9] pt-6"
-        style={{
-          boxShadow: "0 -6px 0 #111",
-          backgroundImage: `
-            radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px),
-            radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)
-          `,
-          backgroundSize: "12px 12px, 12px 12px",
-          backgroundPosition: "0 0, 6px 6px",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        {/* Panel caption strip */}
-        <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
-          <div className="h-[3px] flex-1 bg-black" />
-          <span
-            className="px-3 text-[30px] uppercase tracking-[0.2em] text-black"
-            style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
-          >
-            The Roster
-          </span>
-          <div className="h-[3px] flex-1 bg-black" />
-        </div>
+    <footer
+      className="relative border-t-4 border-black bg-[#f9f9f9] py-6 overflow-hidden"
+      style={{
+        boxShadow: "0 -6px 0 #111",
+        backgroundImage: `
+          radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px),
+          radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)
+        `,
+        backgroundSize: "12px 12px, 12px 12px",
+        backgroundPosition: "0 0, 6px 6px",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      {/* Panel caption strip */}
+      <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
+        <div className="h-[3px] flex-1 bg-black" />
+        <span
+          className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
+          style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
+        >
+           The Roster
+        </span>
+        <div className="h-[3px] flex-1 bg-black" />
+      </div>
 
         {/* Hero cards */}
         <nav aria-label="Footer hero roster" className="relative z-10">

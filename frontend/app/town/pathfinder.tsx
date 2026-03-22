@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 const DURATION = 3000;
 const TRAIL_LENGTH = 60;
 const PULSE_INTERVAL = 450;
+const END_FADE = 500;
 
 
 interface Ring {
@@ -103,7 +104,32 @@ export default function PathFinder({ d }: { d: string }) {
 
             if (t < 1) {
                 animRef.current = requestAnimationFrame(animate);
+            } else {
+                // Stop creating new rings
+                const fadeElapsed = elapsed - DURATION;
+                const fadeT = Math.min(fadeElapsed / END_FADE, 1);
+
+                // Fade dot
+                dot.setAttribute("opacity", String(1 - fadeT));
+
+                // Fade remaining rings
+                ringsRef.current = ringsRef.current
+                    .map((ring) => ({
+                        ...ring,
+                        opacity: ring.opacity - 0.04,
+                    }))
+                    .filter((ring) => ring.opacity > 0);
+
+                if (fadeT < 1 || ringsRef.current.length > 0) {
+                    animRef.current = requestAnimationFrame(animate);
+                }
+
+                if (fadeT > 0) {
+                    dot.classList.remove("dot-pulse");
+                }
             }
+
+
         };
 
         animRef.current = requestAnimationFrame(animate);
