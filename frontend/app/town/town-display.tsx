@@ -2,12 +2,14 @@
 import { useEffect, useState } from "react";
 import PathFinder from "./pathfinder";
 import WarningModal from "./modal";
+import type { HeroCard } from "./modal";
 
 
 interface TownDisplayProps {
     missionLocaion: string;
     missionType: string;
     missionDescription: string
+    onHeroesLoaded: (heroes: HeroCard[]) => void;
 }
 
 type Coordinates = {
@@ -16,7 +18,7 @@ type Coordinates = {
     pinLocation: string
 }
 
-export default function TownDisplay({ missionType, missionLocaion, missionDescription }: TownDisplayProps) {
+export default function TownDisplay({missionType, missionLocaion, missionDescription,onHeroesLoaded }: TownDisplayProps) {
 
     const [showDescription, setShowDescription] = useState(false);
     const [showPath, setShowPath] = useState(false);
@@ -81,6 +83,8 @@ export default function TownDisplay({ missionType, missionLocaion, missionDescri
                         negativeSkills={["Rage"]}
                         bonusPersonality="Brave"
                         penaltyWeaknesses={["Fire Weakness", "Short Sighted"]}
+                        missionKey="fire-disaster"
+                        onHeroesLoaded={onHeroesLoaded}
 
                     />
                 </div>

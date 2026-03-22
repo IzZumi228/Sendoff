@@ -11,6 +11,7 @@ with open("src/score_logic.json", "r") as f:
 def get_data(situation: str):
     if situation not in MISSIONS:
         raise KeyError(f"{situation} not found. Available: {list(MISSIONS.keys())}")
+
     pos_1 = MISSIONS[situation]["positive-stats"][0].strip()
     pos_2 = MISSIONS[situation]["positive-stats"][1].strip()
     neg_1 = MISSIONS[situation]["negative-stats"][0].strip()
