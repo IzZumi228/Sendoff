@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PathFinder from "./pathfinder";
 import WarningModal from "./modal";
 import type { HeroCard } from "./modal";
@@ -16,6 +16,8 @@ interface TownDisplayProps {
     personality?: string;
     weaknesses?: string[];
     onHeroesLoaded: (heroes: HeroCard[]) => void;
+    heroSent: boolean;
+    setHeroSent: Dispatch<SetStateAction<boolean>>
 }
 
 type Coordinates = {
@@ -24,20 +26,22 @@ type Coordinates = {
     pinLocation: string
 }
 
-export default function TownDisplay({ 
-    missionType, 
-    missionLocaion, 
+export default function TownDisplay({
+    missionType,
+    missionLocaion,
     missionDescription,
     posStats,
     negStats,
     personality,
     weaknesses,
-    onHeroesLoaded
+    onHeroesLoaded,
+    heroSent,
+    setHeroSent,
 
 }: TownDisplayProps) {
 
     const [showDescription, setShowDescription] = useState(false);
-    const [showPath, setShowPath] = useState(false);
+
 
     const coordinates: Coordinates[] = [
         {
@@ -91,7 +95,6 @@ export default function TownDisplay({
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <WarningModal
                         eventLocation={missionLocaion}
-                        setShowPath={setShowPath}
                         eventTitle={missionType}
                         eventDescription={missionDescription}
                         setVisible={setShowDescription}
@@ -100,7 +103,6 @@ export default function TownDisplay({
                         bonusPersonality={personality!}
                         penaltyWeaknesses={weaknesses!}
                         onHeroesLoaded={onHeroesLoaded}
-
                     />
                 </div>
             )}
@@ -118,7 +120,7 @@ export default function TownDisplay({
             )}
 
 
-            {currentLocation && showPath && (
+            {heroSent && currentLocation && (
                 <PathFinder d={currentLocation?.path} />
             )}
         </div>

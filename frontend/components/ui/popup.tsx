@@ -15,6 +15,7 @@ type PopupProps = {
   heroName: string;
   skillsArr: HeroSkills;
   onClose: () => void;
+  onSendHero: () => void;
   imageUrl?: string;
 };
 
@@ -23,6 +24,7 @@ export default function Popup({
   heroName,
   skillsArr,
   onClose,
+  onSendHero,
   imageUrl,
 }: PopupProps) {
   if (!isOpen) return null;
@@ -82,7 +84,7 @@ export default function Popup({
         </div>
 
         <button
-          onClick={onClose}
+          onClick={onSendHero}
           className="w-full border-4 border-black bg-[#ffd900] py-2 text-sm uppercase tracking-[0.2em] text-black shadow-[4px_4px_0_#111] hover:bg-[#ff3b3b] hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#111]"
         >
           Send A Hero

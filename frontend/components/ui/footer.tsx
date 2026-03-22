@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import Popup from "./popup";
 import type { HeroCard } from "@/app/town/modal";
 
 type FooterProps = {
   heroes: HeroCard[];
+  selectedHero: HeroCard | null;
+  setSelectedHero: Dispatch<SetStateAction<HeroCard | null>>
+  setHeroSent: Dispatch<SetStateAction<boolean>>
+  handleHeroSent: () => void;
 };
 
-export function Footer({ heroes }: FooterProps) {
-  const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
+export function Footer({ heroes, selectedHero, setSelectedHero, setHeroSent, handleHeroSent}: FooterProps) {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  
+
 
   return (
     <>
@@ -50,7 +57,10 @@ export function Footer({ heroes }: FooterProps) {
             {heroes.map((hero) => (
               <li key={hero.name}>
                 <button
-                  onClick={() => setSelectedHero(hero)}
+                  onClick={() => {
+                    setSelectedHero(hero)
+                    setIsPopupOpen(true);
+                  }}
                   className={[
                     "group flex cursor-pointer flex-col items-center gap-0 overflow-hidden",
                     "border-4 border-black bg-white",
@@ -109,11 +119,18 @@ export function Footer({ heroes }: FooterProps) {
       </footer>
 
       <Popup
-        isOpen={selectedHero !== null}
+        isOpen={isPopupOpen}
         heroName={selectedHero?.name ?? ""}
         skillsArr={selectedHero?.skillsArr ?? {}}
+        onClose={() => {
+          setIsPopupOpen(false);
+        }}
         imageUrl={selectedHero?.imgUrl}
-        onClose={() => setSelectedHero(null)}
+        onSendHero={() => {
+          setHeroSent(true)
+          handleHeroSent();
+          setIsPopupOpen(false);
+        }}
       />
     </>
   );

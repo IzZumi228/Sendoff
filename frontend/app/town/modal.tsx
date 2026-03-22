@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 interface ModalProps {
     setVisible: Dispatch<SetStateAction<boolean>>;
-    setShowPath: Dispatch<SetStateAction<boolean>>;
     eventTitle: string;
     eventDescription: string;
     eventLocation: string;
@@ -99,7 +98,6 @@ function SkillBadge({ skill, state }: { skill: SkillKey; state: "required" | "ne
 
 export default function WarningModal({
     setVisible,
-    setShowPath,
     eventTitle,
     eventDescription,
     eventLocation,
@@ -163,7 +161,7 @@ export default function WarningModal({
 
     return (
         <div
-            className="relative z-10 w-full max-w-md bg-white border-[5px] border-black shadow-[10px_10px_0_black]"
+            className=" relative z-10 w-full max-w-md bg-white border-[5px] border-black shadow-[10px_10px_0_black]"
             style={{ fontFamily: "'Bangers', cursive" }}
         >
             {/* Header */}
@@ -193,7 +191,8 @@ export default function WarningModal({
             </div>
 
             {/* Body */}
-            <div className="px-6 pt-5 pb-7 border-b-[5px] border-black bg-white relative overflow-hidden">
+            <div className="px-6 pt-5 pb-7 border-b-[5px] border-black bg-white relative 
+                max-h-[400px] overflow-y-auto">
                 {/* Ben-Day dots */}
                 <div className="absolute top-0 right-0 w-24 h-24 opacity-[0.07] pointer-events-none"
                     style={{ backgroundImage: "radial-gradient(circle, #000 1.5px, transparent 1.5px)", backgroundSize: "8px 8px" }} />
@@ -250,7 +249,10 @@ export default function WarningModal({
             {/* Actions */}
             <div className="p-5 flex flex-col gap-3 bg-[#f5e642]">
                 <button
-                    onClick={() => { setShowPath(true); setVisible(false); sendChosenDisaster(); }}
+                    onClick={() => { 
+                        setVisible(false); 
+                        sendChosenDisaster(); 
+                    }}
                     disabled={isSending}
                     className="w-full border-4 border-black bg-white py-4 uppercase tracking-[0.2em] text-black transition-all active:translate-x-[4px] active:translate-y-[4px] hover:bg-[#eee]"
                     style={{ fontSize: 22, boxShadow: "5px 5px 0 black" }}
@@ -287,7 +289,7 @@ function Legend({ color, label }: { color: string; label: string }) {
         <div className="flex items-center gap-1.5">
             <div className={`w-3 h-3 ${color} border-2 border-black rounded-full shadow-[1px_1px_0_black]`} />
             <span className="text-[12px] uppercase tracking-wide text-[#444]" style={{ fontFamily: "'Bangers', cursive" }}>
-                {label}
+                {label}x
             </span>
         </div>
     );

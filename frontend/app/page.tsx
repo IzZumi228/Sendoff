@@ -7,6 +7,8 @@ import { Footer } from "@/components/ui/footer";
 import TownDisplay from "./town/town-display";
 import type { HeroCard } from "./town/modal";
 import { FireExtinguisher, HeartPlus, LucideBrain, Radiation, ReceiptIndianRupeeIcon, Users2 } from "lucide-react";
+import { generateMissionEndMessage } from "@/lib/ai";
+import MissionSummaryModal from "@/components/mission-summary-ui";
 
 const sidebarItems = [
   { name: "Fire Disaster", positiveStats: ["Power", "Strength"], negativeStats: ["Evilness", "Corrupted"], personality: "Brave", weaknesses: ["Fire weakness", "Sound sensitive", "Fearful", "Short sighted", "Energy drain", "Hotheaded", "Reckless"], icon: () => <FireExtinguisher /> },
@@ -31,10 +33,25 @@ export default function Home() {
   const [missionDescription, setMissionDescription] = useState("")
   const [heroDashboard, setHeroDashboard] = useState<HeroCard[]>([]);
   const [footerHeroes, setFooterHeroes] = useState<HeroCard[]>([]);
+  const [heroSent, setHeroSent] = useState(false);
+  const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
+  const [isMissionSummaryOpen, setIsMissionSummaryOpen] = useState(false);
+  const [missionSummary, setMissionSummary] = useState("")
 
   useEffect(() => {
     setFooterHeroes(heroDashboard);
   }, [heroDashboard]);
+
+  const handleSendHero = async () => {
+    let totalScore = selectedHero?.skillsArr["finalscore"] as number
+
+    const missionSummary = await generateMissionEndMessage((totalScore / 2), selectedHero?.name!) || "";
+
+    setMissionSummary(missionSummary)
+    setIsMissionSummaryOpen(true);
+
+
+  }
 
   return (
     <>
@@ -48,6 +65,17 @@ export default function Home() {
           missionDescription={missionDescription}
           setmissionDescription={setMissionDescription}
         />
+
+        {isMissionSummaryOpen && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <MissionSummaryModal 
+            setVisible={setIsMissionSummaryOpen}
+            missionSummary={missionSummary} 
+            
+            heroSent={selectedHero?.name!} />
+          </div>
+        )}
+
         <section className="flex flex-1 p-4 md:p-6">
           <div className="mx-auto flex w-full max-w-7xl rounded-md border-4 border-border shadow-[8px_8px_0_#111]">
             <TownDisplay
@@ -59,14 +87,21 @@ export default function Home() {
               missionDescription={missionDescription}
               missionLocaion={missionLocation}
               onHeroesLoaded={setHeroDashboard}
-
+              heroSent={heroSent}
+              setHeroSent={setHeroSent}
             />
 
 
           </div>
         </section>
       </SidebarProvider>
-      <Footer heroes={footerHeroes} />
+      <Footer
+        selectedHero={selectedHero}
+        setSelectedHero={setSelectedHero}
+        setHeroSent={setHeroSent}
+        heroes={footerHeroes}
+        handleHeroSent={handleSendHero}
+      />
     </>
   );
 }
