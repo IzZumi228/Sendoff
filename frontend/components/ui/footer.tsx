@@ -11,7 +11,7 @@ const heroDashboard = [
 export function Footer() {
   return (
     <footer
-      className="relative border-t-4 border-black bg-[#f9f9f9] py-6 overflow-hidden"
+      className="relative border-t-4 border-black bg-[#f9f9f9] pt-6 overflow-hidden"
       style={{
         boxShadow: "0 -6px 0 #111",
         backgroundImage: `
@@ -27,10 +27,10 @@ export function Footer() {
       <div className="relative z-10 mb-4 flex items-center gap-3 px-6">
         <div className="h-[3px] flex-1 bg-black" />
         <span
-          className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
+          className="px-3 text-[30px] uppercase tracking-[0.2em] text-black"
           style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
         >
-          🦸 The Roster
+           The Roster
         </span>
         <div className="h-[3px] flex-1 bg-black" />
       </div>
