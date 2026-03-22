@@ -1,26 +1,38 @@
-from fastapi import FastAPI
+import pandas as pd
 import numpy as np
+import json
 
-api = FastAPI()
-sample = np.genfromtxt("src/hackbeta-herodata.csv", delimiter=",", names=True, dtype=None, encoding="utf-8")
+df = pd.read_csv("src/hackbeta-herodata.csv")
+df.columns = df.columns.str.strip()
 
-@api.get("/")
-def root_msg():
-    return {"message": "Hello from root :D"}
+with open("src/score_logic.json", "r") as f:
+    MISSIONS = json.load(f)
 
-@api.get("/data")
-def get_data():
-    COLUMN = "Strength"
+def get_data(situation: str):
+    if situation not in MISSIONS:
+        raise KeyError(f"{situation} not found. Available: {list(MISSIONS.keys())}")
+    pos_1 = MISSIONS[situation]["positive-stats"][0].strip()
+    pos_2 = MISSIONS[situation]["positive-stats"][1].strip()
+    neg_1 = MISSIONS[situation]["negative-stats"][0].strip()
+    neg_2 = MISSIONS[situation]["negative-stats"][1].strip()
+    pers = MISSIONS[situation]["personality"].strip()
+    weak: list[str] = MISSIONS[situation]["weaknesses"]
 
-    col_data =sample[COLUMN]
+    df["combined_pos"] = df[pos_1] + df[pos_2]
+    df["combined_neg"] = df[neg_1] + df[neg_2]
+    df["final_score"] = df["combined_pos"] - df["combined_neg"]
 
-    sort_i = np.argsort(col_data)[::-1]
-    sort_d = sample[sort_i]
+    df.loc[df["Personality"] == pers, "final_score"] = df["final_score"] * 1.1
 
-    data_l = [
-        { name: float(row[name]) if isinstance(row[name], np.floating) else row[name].item()
-          for name in row.dtype.names }
-        for row in sort_d[:10]
-    ]
+    for weakness in weak:
+        df.loc[df["Weakness"] == weakness, "final_score"] = df["final_score"] * 0.95
 
-    return {"data": data_l}
+
+    best_heroes = df.nlargest(10, "final_score")
+    data_l = json.loads(best_heroes.to_json(orient="records"))
+
+    return data_l
+
+
+print(get_data("intelligence-mission"))
+# print(df.columns.tolist())

@@ -1,4 +1,4 @@
-# Sendout
+# Sendoff
 Hackbeta 2026 Project: Hero Search Engine
 * Group: DEA
 
@@ -10,3 +10,5 @@ Given certain situations search through a database (from a .csv file) to find fo
 * [Eson](https://github.com/IzZumi228) - Frontend, 3D Models
 
 ![Invisigal from Dispatch](https://media1.tenor.com/m/fDsRFgcEe6YAAAAC/dispatch-invisigal.gif)
+
+We love Invisigal

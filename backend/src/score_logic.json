@@ -1,0 +1,50 @@
+{
+    "fire-disaster": {
+        "positive-stats": ["Power", "Strength"],
+        "negative-stats": ["Evilness", "Corrupted"],
+        "personality": "Brave",
+        "weaknesses": ["Fire weakness", "Sound sensitive", "Fearful", "Short sighted", "Energy drain", "Hotheaded", "Reckless"]
+    },
+
+    "monster-attack": {
+        "positive-stats": ["Magic", "Strength"],
+        "negative-stats": ["Evilness", "Corrupted"],
+        "personality": "Cold blooded",
+        "weaknesses": ["Soft hearted", "Fearful", "Impulsive", "Reckless", "Overconfident", "Silver weakness", "Prideful"]
+    },
+
+    "poison-leak": {
+        "positive-stats": ["Poison", "Intelligence"],
+        "negative-stats": ["Evilness", "Corrupted"],
+        "personality": "Calculating",
+        "weaknesses": ["Poison susceptible", "Energy drain", "Short sighted", "Fearful", "Reckless", "Radition weak", "Water weakness"]
+    },
+
+    "bandit-ambush": {
+        "positive-stats": ["Defense", "Power"],
+        "negative-stats": ["Magic", "Corrupted"],
+        "personality": "Charismatic",
+        "weaknesses": ["Trusting", "Naive", "Egotistical", "Reckless", "Greedy", "Impulsive", "Distrustful"]    
+    },
+
+    "dark-ritual": {
+        "positive-stats": ["Intelligence", "Magic"],
+        "negative-stats": ["Strength", "Rage"],
+        "personality": "Power hungry",
+        "weaknesses": ["Magic vulnerable", "Light sensitive", "Darkness bound", "Obsessive", "Paranoid", "Hubris", "Power addicted"]
+    },
+
+    "rescue-mission": {
+        "positive-stats": ["Speed", "Intelligence"],
+        "negative-stats": ["Evilness", "Power"],
+        "personality": "Protective",
+        "weaknesses": ["Soft hearted", "Fearful", "Energy drain", "Short sighted", "Impulsive", "Guilt ridden", "Lonely"]
+    },
+
+    "intelligence-mission": {
+        "positive-stats": ["Intelligence", "Corrupted"],
+        "negative-stats": ["Evilness", "Strength"],
+        "personality": "Clever",
+        "weaknesses": ["Naive", "Trusting", "Paranoid", "Short sighted", "Impulsive", "Manipulable", "Technology vulnerable"]
+    }
+}
