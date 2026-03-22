@@ -30,7 +30,7 @@ export function Footer() {
           className="px-3 text-[13px] uppercase tracking-[0.2em] text-black"
           style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.22em" }}
         >
-          🦸 The Roster
+           The Roster
         </span>
         <div className="h-[3px] flex-1 bg-black" />
       </div>
