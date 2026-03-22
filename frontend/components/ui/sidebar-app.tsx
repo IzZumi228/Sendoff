@@ -20,7 +20,7 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
     <Sidebar
       variant="sidebar"
       collapsible="none"
-      className="relative font-['Comic_Neue',cursive] border-4 border-black shadow-[8px_8px_0_#111] bg-white overflow-hidden"
+      className="relative font-['Comic_Neue',cursive] border-4 border-black shadow-[8px_8px_0_#111] bg-white overflow-hidden ml-3 mt-3"
     >
       {/* Halftone dot texture layer */}
       <div
@@ -56,18 +56,18 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
         />
 
         <span
-          className="block text-3xl tracking-[0.12em] text-black uppercase leading-none"
+          className="block text-4xl tracking-[0.12em] text-black uppercase leading-none"
           style={{
             fontFamily: "'Bangers', cursive",
             WebkitTextStroke: "1px #111",
             textShadow: "2px 2px 0 rgba(0,0,0,0.25)",
           }}
         >
-          ⚡ Sendoff
+          Sendoff
         </span>
         <span
-          className="block text-[10px] font-bold uppercase tracking-widest text-black/60 mt-0.5"
-          style={{ fontFamily: "'Comic Neue', cursive" }}
+          className="block text-[14px] font-bold uppercase tracking-widest text-black/60 mt-0.5"
+          style={{ fontFamily: "'Bangers', cursive" }}
         >
           Disaster Response HQ
         </span>
@@ -82,7 +82,7 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
           >
             <div className="h-[3px] flex-1 bg-black" />
             <span
-              className="px-2 text-[11px] font-black uppercase tracking-[0.15em] text-black"
+              className="px-2 text-[18px] font-black uppercase tracking-[0.15em] text-black"
               style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.2em" }}
             >
               Active Missions
@@ -121,7 +121,7 @@ export function AppSidebar({ disasters }: { disasters: DisasterItem[] }) {
                     {/* Label */}
                     <span
                       className="flex-1 text-[13px]"
-                      style={{ fontFamily: "'Comic Neue', cursive", letterSpacing: "0.08em" }}
+                      style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.08em" }}
                     >
                       {disaster.name}
                     </span>
