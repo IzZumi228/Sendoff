@@ -95,9 +95,9 @@ export default function Popup({
     weakness.toLowerCase(),
   );
   const hasPersonalityBonus =
-    heroPersonality.length > 0 && heroPersonality === bonusPersonality;
+    heroPersonality && heroPersonality === bonusPersonality;
   const hasWeaknessPenalty =
-    heroWeakness.length > 0 && penaltyWeaknesses.includes(heroWeakness);
+    heroWeakness && penaltyWeaknesses.includes(heroWeakness);
 
   const personalityValue = String(normalizedSkills["personality"] ?? "");
   const weaknessValue = String(normalizedSkills["weakness"] ?? "");
@@ -259,7 +259,7 @@ export default function Popup({
                       hasPersonalityBonus ? "text-green-900" : "text-black",
                     ].join(" ")}
                   >
-                    {personalityValue}
+                    {personalityValue} {hasPersonalityBonus ? "+10% to success points" : ""}
                   </p>
                 </div>
               )}
@@ -276,7 +276,7 @@ export default function Popup({
                       hasWeaknessPenalty ? "text-red-800" : "text-black",
                     ].join(" ")}
                   >
-                    ✕ Penalty Weakness
+                    ✕ Penalty Weakness {penaltyWeaknesses ? "-5% from success points" : ""}
                   </p>
                   <p
                     className={[
