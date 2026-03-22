@@ -31,13 +31,14 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
 
   const missionLocations = ["Bar", "Restaurant", "School", "Shopping Mall", "Downtown", "Residential Homes"]
 
-
+  const [isLoading, setIsLoading] = useState(false);
   const [currentDisasters, setCurrentDisasters] = useState(disasters)
 
 
 
 
   const handleMissionPick = async (mission: DisasterItem) => {
+    setIsLoading(true);
 
     setPickedMission(mission);
 
@@ -53,11 +54,11 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
 
     const description = await generateMissionDetails(mission.name, location);
 
-    
+
 
     setmissionDescription(description!);
 
-    console.log("generated description", description)
+    setIsLoading(false)
   }
 
 
@@ -186,10 +187,27 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
               </SidebarMenuItem>
             ))}
 
-            {pickedMission && (
+            {isLoading && (
               <div className="flex flex-col items-center">
                 <Loader />
                 <p >Monitoring crime activity...</p>
+              </div>
+            )}
+
+            {pickedMission && (
+              <div className="mt-4 p-3 border-2 border-black bg-[#FFE600] rounded-none">
+                <div className="text-sm font-bold uppercase tracking-wide text-black mb-2">
+                  Current Mission
+                </div>
+                <div className="space-y-1 text-xs font-semibold text-black/80">
+                  <div><span className="font-black">Type:</span> {pickedMission.name}</div>
+                  <div><span className="font-black">Location:</span> {missionLocation}</div>
+                  {missionDescription && (
+                    <div className="mt-2 p-2 bg-white border border-black text-black/70">
+                      {missionDescription}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </SidebarMenu>

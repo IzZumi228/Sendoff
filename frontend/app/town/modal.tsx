@@ -39,24 +39,28 @@ function SkillBadge({ skill, state }: { skill: SkillKey; state: "required" | "ne
     const { bg, border, shadow } = SKILL_BG[skill];
     return (
         <div className="flex flex-col items-center gap-1" title={skill}>
-            <div
-                className={[
-                    "relative w-13 h-13 flex items-center justify-center transition-opacity",
-                    state === "dimmed" ? "opacity-25 grayscale" : "opacity-100",
-                ].join(" ")}
-                style={{
-                    background: bg,
-                    border: `3px solid ${border}`,
-                    boxShadow: `3px 3px 0 ${shadow}`,
-                    clipPath: "polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)",
-                }}
-            >
-                <img
-                    src={`/badges/${skill.toLowerCase()}.png`}
-                    alt={skill}
-                    className="w-8 h-8 object-contain"
-                />
-                {/* pip */}
+           
+            <div className="relative">
+                <div
+                    className={[
+                        "w-13 h-13 flex items-center justify-center transition-opacity",
+                        state === "dimmed" ? "opacity-25 grayscale" : "opacity-100",
+                    ].join(" ")}
+                    style={{
+                        background: bg,
+                        border: `3px solid ${border}`,
+                        boxShadow: `3px 3px 0 ${shadow}`,
+                        clipPath: "polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)",
+                    }}
+                >
+                    <img
+                        src={`/badges/${skill.toLowerCase()}.png`}
+                        alt={skill}
+                        className="w-8 h-8 object-contain"
+                    />
+                </div>
+
+                
                 {state === "required" && (
                     <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-600 border-2 border-black rounded-full flex items-center justify-center text-white text-[8px] font-black shadow-[1px_1px_0_black] z-10">✓</span>
                 )}
@@ -64,6 +68,7 @@ function SkillBadge({ skill, state }: { skill: SkillKey; state: "required" | "ne
                     <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-red-600 border-2 border-black rounded-full flex items-center justify-center text-white text-[8px] font-black shadow-[1px_1px_0_black] z-10">✕</span>
                 )}
             </div>
+
             <span className="font-['Bangers',cursive] text-[10px] uppercase tracking-wide text-center leading-none max-w-[52px] truncate"
                 style={{ color: state === "dimmed" ? "#aaa" : "#111" }}>
                 {skill}
@@ -99,7 +104,7 @@ export default function WarningModal({
                     </h2>
                     {/* Location badge */}
                     <div className="flex items-center gap-1.5 mt-1">
-                        <span className="text-[#f5e642] text-xs">📍</span>
+                        <span className="text-[#f5e642] text-xs">Location:</span>
                         <span className="text-[#f5e642] uppercase tracking-widest text-[12px]">
                             {eventLocation}
                         </span>

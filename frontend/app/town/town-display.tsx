@@ -4,10 +4,16 @@ import PathFinder from "./pathfinder";
 import WarningModal from "./modal";
 
 
+
+
 interface TownDisplayProps {
     missionLocaion: string;
     missionType: string;
     missionDescription: string
+    posStats?: string[];
+    negStats?: string[];
+    personality?: string;
+    weaknesses?: string[];
 }
 
 type Coordinates = {
@@ -16,7 +22,16 @@ type Coordinates = {
     pinLocation: string
 }
 
-export default function TownDisplay({ missionType, missionLocaion, missionDescription }: TownDisplayProps) {
+export default function TownDisplay({ 
+    missionType, 
+    missionLocaion, 
+    missionDescription,
+    posStats,
+    negStats,
+    personality,
+    weaknesses,
+
+}: TownDisplayProps) {
 
     const [showDescription, setShowDescription] = useState(false);
     const [showPath, setShowPath] = useState(false);
@@ -77,10 +92,10 @@ export default function TownDisplay({ missionType, missionLocaion, missionDescri
                         eventTitle={missionType}
                         eventDescription={missionDescription}
                         setVisible={setShowDescription}
-                        skillsRequired={["Strength", "Speed"]}
-                        negativeSkills={["Rage"]}
-                        bonusPersonality="Brave"
-                        penaltyWeaknesses={["Fire Weakness", "Short Sighted"]}
+                        skillsRequired={posStats!}
+                        negativeSkills={negStats!}
+                        bonusPersonality={personality!}
+                        penaltyWeaknesses={weaknesses!}
 
                     />
                 </div>
