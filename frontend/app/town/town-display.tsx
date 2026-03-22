@@ -41,6 +41,7 @@ export default function TownDisplay({
 }: TownDisplayProps) {
 
     const [showDescription, setShowDescription] = useState(false);
+    
 
 
     const coordinates: Coordinates[] = [
