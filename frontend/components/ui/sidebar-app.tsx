@@ -1,7 +1,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarHeader,
   SidebarMenu,
@@ -11,6 +10,7 @@ import {
 import { Dispatch, SetStateAction, useState } from "react"
 import { Loader } from "./loader"
 import generateMissionDetails from "@/lib/ai"
+import { HeroCard } from "@/app/town/modal"
 
 type DisasterItem = {
   name: string
@@ -25,9 +25,13 @@ interface AppsideBarProps {
   missionDescription: string;
   setmissionDescription: Dispatch<SetStateAction<string>>
   disasters: DisasterItem[];
+  selectedHero?: HeroCard;
+  successRate?: number;
+  missionStatus?: string;
+  missionSummary?: string;
 }
 
-export function AppSidebar({ disasters, pickedMission, setPickedMission, missionLocation, setMissionLocation, missionDescription, setmissionDescription }: AppsideBarProps) {
+export function AppSidebar({ disasters, pickedMission, setPickedMission, missionLocation, setMissionLocation, missionDescription, setmissionDescription, selectedHero, successRate, missionStatus}: AppsideBarProps) {
 
   const missionLocations = ["Bar", "Restaurant", "School", "Shopping Mall", "Downtown", "Residential Homes"]
 
@@ -42,19 +46,13 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
 
     setPickedMission(mission);
 
-    console.log("Picked the mission", mission)
-
     const location = missionLocations[Math.floor(Math.random() * missionLocations.length)]
 
     setMissionLocation(location)
 
-    console.log("Picked the location", location)
-
     setCurrentDisasters((prev) => prev.filter((mis) => mis.name === mission.name))
 
     const description = await generateMissionDetails(mission.name, location);
-
-
 
     setmissionDescription(description!);
 
@@ -66,7 +64,7 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
     <Sidebar
       variant="sidebar"
       collapsible="none"
-      className="relative font-['Comic_Neue',cursive] border-4 border-black shadow-[8px_8px_0_#111] bg-white overflow-hidden ml-3 mt-3"
+      className="relative font-['Comic_Neue',cursive] border-4 border-black shadow-[8px_8px_0_#111] bg-white ml-3 mt-3 "
     >
       {/* Halftone dot texture layer */}
       <div
@@ -207,6 +205,51 @@ export function AppSidebar({ disasters, pickedMission, setPickedMission, mission
                       {missionDescription}
                     </div>
                   )}
+                </div>
+              </div>
+            )}
+
+            {selectedHero && (
+              <div
+                className="mb-3 flex items-center gap-2 border-2 border-black bg-black px-3 py-2"
+                style={{ fontFamily: "'Bangers', cursive" }}
+              >
+                <span className="text-[#FFE600] text-sm tracking-widest uppercase">
+                  Hero:
+                </span>
+                <span className="text-white text-base tracking-wider uppercase truncate">
+                  {selectedHero.name}
+                </span>
+              </div>
+            )}
+
+            {missionStatus && (
+              <div className=" border-2 border-black bg-white overflow-hidden">
+                <div
+                  className="bg-black text-[#FFE600] px-2 py-0.5 text-[10px] uppercase tracking-widest"
+                  style={{ fontFamily: "'Bangers', cursive" }}
+                >
+                  Mission Log
+                </div>
+                <div className="flex items-start gap-2 px-2 py-1.5">
+                  <span
+                    className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center border border-[#FF3B3B] bg-[#FF3B3B] text-[9px] font-black text-white"
+                    style={{ fontFamily: "'Bangers', cursive" }}
+                  >
+
+                  </span>
+                  <span
+                    className="text-[11px] font-bold leading-tight text-black"
+                    style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.04em" }}
+                  >
+                    {missionStatus}
+                  </span>
+
+                  <span
+                    className="text-[11px] font-bold leading-tight text-black"
+                    style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.04em" }}
+                  >
+                  </span>
                 </div>
               </div>
             )}

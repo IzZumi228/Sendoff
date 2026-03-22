@@ -215,7 +215,6 @@ export default function WarningModal({
                     <div className="flex items-center gap-4 mt-4">
                         <Legend color="bg-green-600" label="Required" />
                         <Legend color="bg-red-600" label="Disadvantage" />
-                        <Legend color="bg-gray-300" label="N/A" />
                     </div>
                 </div>
 
@@ -237,9 +236,7 @@ export default function WarningModal({
                     </div>
                 )}
 
-                {/* Speech-bubble tail */}
-                <div className="absolute -bottom-[22px] left-10 w-0 h-0"
-                    style={{ borderLeft: "12px solid transparent", borderRight: "12px solid transparent", borderTop: "22px solid black" }} />
+
             </div>
 
             {/* Actions */}
@@ -285,7 +282,7 @@ function Legend({ color, label }: { color: string; label: string }) {
         <div className="flex items-center gap-1.5">
             <div className={`w-3 h-3 ${color} border-2 border-black rounded-full shadow-[1px_1px_0_black]`} />
             <span className="text-[12px] uppercase tracking-wide text-[#444]" style={{ fontFamily: "'Bangers', cursive" }}>
-                {label}x
+                {label}
             </span>
         </div>
     );

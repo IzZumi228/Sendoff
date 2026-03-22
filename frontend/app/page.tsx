@@ -47,6 +47,7 @@ export default function Home() {
   const [selectedHero, setSelectedHero] = useState<HeroCard | null>(null);
   const [isMissionSummaryOpen, setIsMissionSummaryOpen] = useState(false);
   const [missionSummary, setMissionSummary] = useState("")
+  const [successRate, setSuccessRate] = useState(0);
   const selectedMission = sidebarItems.find((item) => item.name === pickedMission?.name);
   const missionContext: PopupMissionContext | null = selectedMission
     ? {
@@ -74,6 +75,8 @@ export default function Home() {
     let successRate = totalScore / 2;
 
     console.log("Success Rate is", successRate)
+
+    setSuccessRate(successRate)
 
     const roll = Math.random() * 100;
     const rollForSabotage = Math.random() * 100;
@@ -104,6 +107,10 @@ export default function Home() {
           disasters={sidebarItems}
           missionDescription={missionDescription}
           setmissionDescription={setMissionDescription}
+          selectedHero={selectedHero!}
+          successRate={successRate}
+          missionStatus={missionStatus}
+          missionSummary={missionSummary}
         />
 
         {isMissionSummaryOpen && (
